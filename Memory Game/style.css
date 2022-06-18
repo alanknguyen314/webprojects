@@ -1,0 +1,234 @@
+    * {
+        padding: 0;
+        margin: 0;
+        -webkit-box-sizing: border-box;
+                box-sizing: border-box;
+        font-family: "Roboto", sans-serif;
+        -webkit-tap-highlight-color: transparent !important;
+      }
+      body {
+        background-color: #b1b1b1;
+      }
+      #box {
+        font-size: 15px;
+        width: 33em;
+        height: 44em;
+        position: absolute;
+        -webkit-transform: translate(-50%, -50%);
+            -ms-transform: translate(-50%, -50%);
+                transform: translate(-50%, -50%);
+        top: 50%;
+        left: 50%;
+        display: none;
+      }
+      .wrapper {
+        position: absolute;
+        width: 100%;
+        height: 90%;
+        background-color: #ffffff;
+        border-radius: 0.6em;
+        -webkit-box-shadow: 0 0.9em 2.8em rgba(86, 66, 0, 0.2);
+                box-shadow: 0 0.9em 2.8em rgba(86, 66, 0, 0.2);
+        padding: 2em;
+        display: -webkit-box;
+        display: -ms-flexbox;
+        display: flex;
+        -webkit-box-pack: justify;
+            -ms-flex-pack: justify;
+                justify-content: space-between;
+        -webkit-box-orient: vertical;
+        -webkit-box-direction: normal;
+            -ms-flex-direction: column;
+                flex-direction: column;
+      }
+      .controls-container {
+        position: absolute;
+        background-color: #ffffff;
+        width: 100%;
+        height: 90%;
+        border-radius: 0.6em;
+        display: -webkit-box;
+        display: -ms-flexbox;
+        display: flex;
+        -webkit-box-align: center;
+            -ms-flex-align: center;
+                align-items: center;
+        -webkit-box-pack: center;
+            -ms-flex-pack: center;
+                justify-content: center;
+        -webkit-box-orient: vertical;
+        -webkit-box-direction: normal;
+            -ms-flex-direction: column;
+                flex-direction: column;
+      }
+      a {
+        background-color: #000000;
+        display: block;
+        width: 100%;
+        padding: 1.2em;
+        border-radius: 0.6em;
+        text-align: center;
+        color: #ffffff;
+        font-size: 1.4em;
+        position: absolute;
+        margin-top: 28.8em;
+        text-decoration: none;
+      }
+      #loader {
+        width: 320px;
+        height: 320px;
+        position: absolute;
+        -webkit-transform: translate(-50%, -50%);
+            -ms-transform: translate(-50%, -50%);
+                transform: translate(-50%, -50%);
+        top: 50%;
+        left: 50%;
+        background-color: #ffffff;
+        border-radius: 8px;
+        display: -ms-grid;
+        display: grid;
+        place-items: center;
+      }
+      #loader:before {
+        content: "";
+        position: absolute;
+        height: 160px;
+        width: 160px;
+        border: 15px solid #d4ddec;
+        border-radius: 50%;
+        border-top-color: #ffffff;
+        -webkit-animation: spin 1.5s linear infinite;
+                animation: spin 1.5s linear infinite;
+      }
+      @-webkit-keyframes spin {
+        100% {
+          -webkit-transform: rotate(360deg);
+                  transform: rotate(360deg);
+        }
+      }
+      @keyframes spin {
+        100% {
+          -webkit-transform: rotate(360deg);
+                  transform: rotate(360deg);
+        }
+      }
+
+      .img-con {
+        position: absolute;
+      }
+      .img-con img {
+        position: absolute;
+        width: 1px;
+      }
+      .stats-container {
+        text-align: right;
+        margin-bottom: 1.2em;
+      }
+      .stats-container span {
+        font-weight: 600;
+      }
+      .game-container {
+        position: relative;
+        width: 100%;
+        display: -ms-grid;
+        display: grid;
+        gap: 0.6em;
+      }
+      .card-container {
+        position: relative;
+        width: 6.25em;
+        height: 6.25em;
+        cursor: pointer;
+      }
+      .card-before,
+      .card-after {
+        position: absolute;
+        border-radius: 5px;
+        width: 100%;
+        height: 100%;
+        display: -webkit-box;
+        display: -ms-flexbox;
+        display: flex;
+        -webkit-box-align: center;
+            -ms-flex-align: center;
+                align-items: center;
+        -webkit-box-pack: center;
+            -ms-flex-pack: center;
+                justify-content: center;
+        border: 4px solid #000000;
+        -webkit-transition: -webkit-transform 0.7s ease-out;
+        transition: -webkit-transform 0.7s ease-out;
+        -o-transition: transform 0.7s ease-out;
+        transition: transform 0.7s ease-out;
+        transition: transform 0.7s ease-out, -webkit-transform 0.7s ease-out;
+        -webkit-backface-visibility: hidden;
+                backface-visibility: hidden;
+      }
+      .card-before {
+        background-color: #3189f4;
+        font-size: 2.8em;
+        font-weight: 600;
+        -webkit-touch-callout: none;
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        -ms-user-select: none;
+        user-select: none;
+      }
+      .card-after {
+        background-color: #ffffff;
+        -webkit-transform: rotateY(180deg);
+                transform: rotateY(180deg);
+      }
+      .card-after img {
+        width: 80%;
+      }
+      .card-container.flipped .card-before {
+        -webkit-transform: rotateY(180deg);
+                transform: rotateY(180deg);
+      }
+      .card-container.flipped .card-after {
+        -webkit-transform: rotateY(0);
+                transform: rotateY(0);
+      }
+
+      button {
+        border: none;
+        border-radius: 0.3em;
+        padding: 1em 1.5em;
+        cursor: pointer;
+        background-color: #0980e8;
+      }
+      #stop {
+        font-size: 1.1em;
+        margin: 1.1em auto 0 auto;
+        background-color: #000000;
+        color: #ffffff;
+      }
+      .controls-container button {
+        font-size: 1.3em;
+        -webkit-box-shadow: 0 0.6em 2em rgba(86, 66, 0, 0.2);
+                box-shadow: 0 0.6em 2em rgba(86, 66, 0, 0.2);
+      }
+      .hide {
+        display: none;
+      }
+      #result {
+        text-align: center;
+      }
+      #result h2 {
+        font-size: 2.5em;
+      }
+      #result h4 {
+        font-size: 1.8em;
+        margin: 0.6em 0 1em 0;
+      }
+      @media screen and (max-width: 700px) {
+        #box {
+          font-size: 12px;
+        }
+      }
+      @media screen and (max-width: 500px) {
+        #box {
+          font-size: 11px;
+        }
+      }

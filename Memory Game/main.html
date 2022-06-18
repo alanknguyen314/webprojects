@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="style.css"
+    <title>Memory Game</title>
+  </head>
+
+  <body>
+    <div id="loader"></div>
+    <div id="box">
+      <div class="img-con">
+        <img src="https://i.postimg.cc/J7c0S9kb/anaconda.png" />
+        <img src="https://i.postimg.cc/25Z8GJYL/bee.png" />
+        <img src="https://i.postimg.cc/tR5RBWKk/chameleon.png" />
+        <img src="https://i.postimg.cc/bNmJwkLr/cockatoo.png" />
+        <img src="https://i.postimg.cc/dVD0k3SB/crocodile.png" />
+        <img src="https://i.postimg.cc/ZRzYMcY7/gorilla.png" />
+        <img src="https://i.postimg.cc/tTdRQxYX/macaw.png" />
+        <img src="https://i.postimg.cc/mk8bhWYJ/monkey.png" />
+        <img src="https://i.postimg.cc/NjVj1t3w/piranha.png" />
+        <img src="https://i.postimg.cc/bNyrP3x4/sloth.png" />
+        <img src="https://i.postimg.cc/qqkJkv32/tiger.png" />
+        <img src="https://i.postimg.cc/VvRNMC87/toucan.png" />
+      </div>
+      <div class="wrapper">
+        <div class="stats-container">
+          <div id="movesCount"></div>
+          <div id="time"></div>
+        </div>
+        <div class="game-container"></div>
+        <button id="stop" class="hide">Stop Game</button>
+      </div>
+      <div class="controls-container">
+        <p id="result"></p>
+        <button id="start">Start Game</button>
+    <script>
+      window.addEventListener("load", () => {
+        document.getElementById("box").style.display = "block";
+        document.getElementById("loader").style.display = "none";
+      });
+      const moves = document.getElementById("movesCount");
+      const timeValue = document.getElementById("time");
+      const startButton = document.getElementById("start");
+      const stopButton = document.getElementById("stop");
+      const gameContainer = document.querySelector(".game-container");
+      const result = document.getElementById("result");
+      const controls = document.querySelector(".controls-container");
+      let cards;
+      let interval;
+      let firstCard = false;
+      let secondCard = false;
+
+      //items array
+      const items = [
+        {
+          name: "bee",
+          image: "https://i.postimg.cc/25Z8GJYL/bee.png",
+        },
+        {
+          name: "crocodile",
+          image: "https://i.postimg.cc/dVD0k3SB/crocodile.png",
+        },
+        {
+          name: "macaw",
+          image: "https://i.postimg.cc/tTdRQxYX/macaw.png",
+        },
+        {
+          name: "gorilla",
+          image: "https://i.postimg.cc/ZRzYMcY7/gorilla.png",
+        },
+        {
+          name: "tiger",
+          image: "https://i.postimg.cc/qqkJkv32/tiger.png",
+        },
+        {
+          name: "monkey",
+          image: "https://i.postimg.cc/mk8bhWYJ/monkey.png",
+        },
+        {
+          name: "chameleon",
+          image: "https://i.postimg.cc/tR5RBWKk/chameleon.png",
+        },
+        {
+          name: "piranha",
+          image: "https://i.postimg.cc/NjVj1t3w/piranha.png",
+        },
+        {
+          name: "anaconda",
+          image: "https://i.postimg.cc/J7c0S9kb/anaconda.png",
+        },
+        {
+          name: "sloth",
+          image: "https://i.postimg.cc/bNyrP3x4/sloth.png",
+        },
+        {
+          name: "cockatoo",
+          image: "https://i.postimg.cc/bNmJwkLr/cockatoo.png",
+        },
+        {
+          name: "toucan",
+          image: "https://i.postimg.cc/VvRNMC87/toucan.png",
+        },
+      ];
+
+      //inital time
+      let seconds = 0,
+        minutes = 0;
+      //initial moves and win count
+      let movesCount = 0,
+        winCount = 0;
+      //for timer
+      const timeGenerator = () => {
+        seconds += 1;
+        //minutes logic
+        if (seconds >= 60) {
+          minutes += 1;
+          seconds = 0;
+        }
+        //format time before displaying
+        let secondsValue = seconds < 10 ? `0${seconds}` : seconds;
+        let minutesValue = minutes < 10 ? `0${minutes}` : minutes;
+        timeValue.innerHTML = `<span>Time:</span> ${minutesValue}:${secondsValue}`;
+      };
+
+      //for calculating moves
+      const movesCounter = () => {
+        movesCount += 1;
+        moves.innerHTML = `<span>Moves:</span> ${movesCount}`;
+      };
+
+      //pick random objects from the items array
+      const generateRandom = (size = 4) => {
+        //temporary array
+        let tempArray = [...items];
+        //initializes cardValues array
+        let cardValues = [];
+        //size should be double (4*4 matrix)/2 since pairs of objects would exist
+        size = (size * size) / 2;
+        //random object selction logic
+        for (let i = 0; i < size; i++) {
+          const randomIndex = Math.floor(Math.random() * tempArray.length);
+          cardValues.push(tempArray[randomIndex]);
+          //once selected remove the object from temp array
+          tempArray.splice(randomIndex, 1);
+        }
+        return cardValues;
+      };
+      const matrixGenerator = (cardValues, size = 4) => {
+        gameContainer.innerHTML = "";
+        cardValues = [...cardValues, ...cardValues];
+        //simple shuffle
+        cardValues.sort(() => Math.random() - 0.5);
+        for (let i = 0; i < size * size; i++) {
+          /*
+        create cards
+        before=front side (contains question mark)
+        after=back side (contains actual image)
+
+        data-card-values is a custom attribute which stores the names of cards to match later
+        */
+          gameContainer.innerHTML += `
+            <div class="card-container" data-card-value="${cardValues[i].name}">
+            <div class="card-before">?
+            </div>
+            <div class="card-after">
+                <img src="${cardValues[i].image}" class="image" />
+            </div>
+            </div>
+            `;
+        }
+
+        //grid
+        gameContainer.style.gridTemplateColumns = `repeat(${size}, auto)`;
+        //cards
+        cards = document.querySelectorAll(".card-container");
+        cards.forEach((card) => {
+          card.addEventListener("click", () => {
+            //if selected card is not matched yet then only run (i.e already matched cards when clicked would be ignored)
+            if (!card.classList.contains("matched")) {
+              //flip the clicked card
+              card.classList.add("flipped");
+              //if it is the firstcard(!firstCard since firstCard is initially false)
+              if (!firstCard) {
+                //so current card will become firstCard
+                firstCard = card;
+                //current card's value becomes firstCardValue
+                firstCardValue = card.getAttribute("data-card-value");
+              } else {
+                //increment moves since user selected second card
+                movesCounter();
+                //secondCard and value
+                secondCard = card;
+                let secondCardValue = card.getAttribute("data-card-value");
+                if (firstCardValue == secondCardValue) {
+                  //if both cards match add matched class so that these cards would be ignored next time
+                  firstCard.classList.add("matched");
+                  secondCard.classList.add("matched");
+                  //set firstCard to false since next card would be first
+                  firstCard = false;
+                  //winCount increment as user found a correct match
+                  winCount += 1;
+                  //check if winCount==half of cardValues (all pairs found)
+                  if (winCount == Math.floor(cardValues.length / 2)) {
+                    result.innerHTML = `
+               <h2> You Won!</h2>
+                <h4>Moves: ${movesCount}</h4>
+                `;
+                    stopGame();
+                  }
+                } else {
+                  //if the cards don't match
+                  //flip the cards back to normal
+                  let [tempFirst, tempSecond] = [firstCard, secondCard];
+                  firstCard = false;
+                  secondCard = false;
+                  let delay = setTimeout(() => {
+                    tempFirst.classList.remove("flipped");
+                    tempSecond.classList.remove("flipped");
+                  }, 900);
+
+                  //adjust 900 based on your transform time(currently .7s in css)
+                }
+              }
+            }
+          });
+        });
+      };
+      //initial values/function calls
+      const initializer = () => {
+        result.innerText = "";
+        winCount = 0;
+        let cardValues = generateRandom();
+        matrixGenerator(cardValues);
+      };
+      //start the game
+      startButton.addEventListener("click", () => {
+        movesCount = 0;
+        minutes = 0;
+        seconds = 0;
+        //controls and buttons visibility
+        controls.classList.add("hide");
+        stopButton.classList.remove("hide");
+        startButton.classList.add("hide");
+        //start timer
+        interval = setInterval(timeGenerator, 1000);
+        //initial moves
+        moves.innerHTML = `<span>Moves:</span> ${movesCount}`;
+        initializer();
+      });
+      //stop game
+      stopButton.addEventListener(
+        "click",
+        (stopGame = () => {
+          controls.classList.remove("hide");
+          stopButton.classList.add("hide");
+          startButton.classList.remove("hide");
+          clearInterval(interval);
+        })
+      );
+    </script>
+  </body>
+</html>

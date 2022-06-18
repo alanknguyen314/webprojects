@@ -1,0 +1,190 @@
+* {
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    -ms-box-sizing: border-box;
+    -o-box-sizing: border-box;
+    box-sizing: border-box;
+    font-family: sans-serif;
+}
+
+button {
+    cursor: pointer;
+    border: none;
+}
+
+button,
+input {
+    outline: none;
+}
+
+.btn {
+    color: #fff;
+    padding: 5px 10px;
+    font-size: 12px;
+    font-weight: bold;
+}
+
+.main {
+    width: 98%;
+    height: auto;
+    margin: 50px auto;
+    padding: 20px;
+    background: #efecec;
+    text-align: center;
+    border: 4px solid #62929a
+}
+
+.main h2 {
+    margin: 0;
+    font-family: 'OrkneyRegular';
+    color: #363434;
+}
+
+.new-game {
+    margin-top: 30px;
+    background: #62929a;
+    font-family: 'OpenSansYtoKRegular';
+}
+
+.game-info {
+    display: none;
+}
+
+.game-info p {
+    margin: 15px 0 7px;
+}
+
+.game-info .name {
+    width: 70%;
+    padding: 7px;
+    border: 1px solid #777;
+}
+
+.game-info .start {
+    width: 20%;
+    background: #ff9a35;
+    font-family: 'OpenSansYtoKRegular';
+}
+
+.one {
+    display: block;
+}
+
+.two {
+    display: none;
+}
+
+.players {
+    width: 100%;
+    height: auto;
+    margin: 15px 0
+}
+
+.player {
+    width: 40%;
+    display: inline-block;
+    padding: 5px 0;
+    border: 3px solid #62929a
+}
+
+.player p, h4 {
+    font-weight: bold;
+    margin: 0;
+}
+
+.player h4 {
+    color: #363434;
+}
+
+.player p {
+    font-weight: bold;
+    color: #2295aa;
+}
+
+.vs {
+    width: 15%;
+    display: inline-block;
+    font-family: tahoma;
+    font-weight: bold;
+    font-size: 24px;
+    color: #e84545;
+}
+
+.weapons {
+    width: 11%;
+    height: auto;
+    display: inline-block;
+}
+
+.fight {
+    width: 70%;
+    display: inline-block;
+}
+
+.fight img {
+    width: 40%;
+    padding-bottom: 10px
+}
+
+.fight .result {
+    font-size: 22px;
+    font-weight: bold
+}
+
+.player-weapons img {
+    cursor: pointer;
+}
+
+.weapons img {
+    width: 100%;
+    margin: 5px 0;
+}
+
+.reset {
+    display: none;
+    margin-top: 20px;
+    background: #62929a;
+}
+
+.hand-1,
+.hand-2,
+.result {
+    display: none;
+}
+
+.winner {
+    animation: winner .6s infinite alternate;
+}
+
+.lose {
+    color: #df0509;
+}
+
+.win {
+    color: #00BF00;
+}
+
+.draw {
+    color: #4e4e4e;
+}
+
+@keyframes winner {
+    0% {
+        transform: scale(1);
+    }
+
+    100% {
+        transform: scale(1.1);
+    }
+}
+
+footer {
+    text-align: center;
+    font-family: sans-serif;
+}
+
+footer a {
+    font-weight: bold;
+    color: #1f1d1d;
+    text-decoration: none;
+}

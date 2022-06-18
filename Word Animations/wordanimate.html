@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+    <link rel="stylesheet" href="style.css">
+   <meta name="viewport" content="width=device-width, initial-scale=1">
+   <title>Text-Animations</title>
+   
+</head>
+<body>
+   <!---- Loader ----->
+   <section id="loadPg">
+      <div id="loader"></div>
+   </section>
+   <!---- Main Section ----->
+   <section>
+      <h3 id="heading">Text-Animations</h3>
+      <div id="txtCont">
+         <div id="box">
+           <div class="txt" id="txt1">
+              <b>S</b><b>O</b><b>L</b><b>O</b><b>L</b><b>E</b><b>A</b><b>R</b><b>N</b>
+           </div>
+           <div class="txt" id="txt2">
+              <b>W</b><b>A</b><b>T</b><b>E</b><b>R</b><b>W</b><b>A</b><b>V</b><b>E</b>
+           </div>
+           <div class="txt" id="txt3">
+              <b>S</b><b>T</b><b>A</b><b>N</b><b>D</b><b>I</b><b>N</b><b>G</b>
+           </div>
+           <div class="txt" id="txt4">
+              <b>D</b><b>A</b><b>N</b><b>C</b><b>I</b><b>N</b><b>G</b><b>G</b>
+           </div>
+           <div class="txt" id="txt5"></div>
+           <div class="txt" id="txt6">
+              <b>W</b><b>A</b><b>V</b><b>V</b><b>I</b><b>N</b><b>G</b><b>G</b>
+           </div>
+           <div class="txt" id="txt7">
+              <b>S</b><b>U</b><b>R</b><b>P</b><b>R</b><b>I</b><b>S</b><b>E</b>
+           </div>
+           <div class="txt" id="txt8">
+              <b>L</b><b>I</b><b>G</b><b>H</b><b>T</b><b>-</b><b>U</b><b>P</b>
+           </div>
+         </div>
+      </div>
+      <!---- Navigator ----->
+      <div id="nav">
+         <button id="prev">←</button>
+         <button id="next">→</button>
+      </div>
+   </section>
+   
+<script type="text/javascript">
+   //---- JavaScript ------//
+
+   var txt = document.querySelectorAll(".txt");
+   
+   var ind = 0;
+   next.addEventListener("click",function(){
+      ind++;
+      if(ind==8){
+         ind = 0;
+      }
+      box.style.left=(-100*ind)+"%";
+   })
+   prev.addEventListener("click",function(){
+      if(ind==0){
+         ind = 8;
+      }
+      ind--;
+      box.style.left=(-100*ind)+"%";
+   })
+   
+   //---Loader----//
+   setTimeout(function(){
+      document.querySelector("#loadPg").style.display="none";
+   },4000)
+
+</script>
+</body>
+</html>
